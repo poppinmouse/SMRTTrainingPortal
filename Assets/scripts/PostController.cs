@@ -30,6 +30,7 @@ public class PostController : MonoBehaviour
         string interchange = interchangeField.text;
 
         WWWForm form = new WWWForm();
+        form.AddField("BookedDate", CalendarController._calendarInstance.selectedDate);
         form.AddField("Name", name);
         form.AddField("Id", iD);
         form.AddField("Interchange", interchange);

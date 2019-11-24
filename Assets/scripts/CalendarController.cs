@@ -15,6 +15,8 @@ public class CalendarController : MonoBehaviour
     public List<GameObject> _dateItems = new List<GameObject>();
     const int _totalDateNum = 42;
 
+    public int selectedDate;
+
     private DateTime _dateTime;
     public static CalendarController _calendarInstance;
 
@@ -121,6 +123,11 @@ public class CalendarController : MonoBehaviour
     public void OnDateItemClick(string day)
     {
         _target.text = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day+"Day";
+        if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
+        {
+            selectedDate = result;
+        }
         _calendarPanel.SetActive(false);
     }
+
 }
