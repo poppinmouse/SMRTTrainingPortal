@@ -8,9 +8,12 @@ public class PostController : MonoBehaviour
 {
     public Dropdown trainingTypeDD;
 
-    public InputField nameField;
-    public InputField iDField;
-    public InputField interchangeField;
+    public InputField[] nameFields;
+    public InputField[] iDFields;
+    public InputField[] interchangeFields;
+
+    [SerializeField]
+    public Trainee[] trainees = new Trainee[2];
 
     private string route;
 
@@ -21,19 +24,30 @@ public class PostController : MonoBehaviour
 
     IEnumerator Upload()
     {
-        string name = nameField.text;
-        int iD = 0;
-        if (int.TryParse(iDField.text, out int result))
-        {
-            iD = result;
-        }
-        string interchange = interchangeField.text;
-
         WWWForm form = new WWWForm();
         form.AddField("BookedDate", CalendarController._calendarInstance.selectedDate);
-        form.AddField("Name", name);
-        form.AddField("Id", iD);
-        form.AddField("Interchange", interchange);
+
+        for (int i = 0; i < 2; i++)
+        {
+            string name = nameFields[i].text;
+            int iD = 0;
+            if (int.TryParse(iDFields[i].text, out int result))
+            {
+                iD = result;
+            }
+            string interchange = interchangeFields[i].text;
+
+            trainees[i] = new Trainee(name, iD, interchange);
+
+            //form.AddField("Name" + i, name);
+            //form.AddField("Id" + i, iD);
+            //form.AddField("Interchange" + i, interchange);
+        }
+
+        string traineesJson = JsonHelper.ToJson(trainees);
+        Debug.Log(traineesJson);
+
+        form.AddField("Trainees", traineesJson);
 
         switch (trainingTypeDD.value)
         {
