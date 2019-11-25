@@ -67,7 +67,7 @@ public class PostController : MonoBehaviour
                 break;
         }
 
-        UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000" + "/" +route, form);
+        UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000" + "/" + route, form);
         
         yield return www.SendWebRequest();
 

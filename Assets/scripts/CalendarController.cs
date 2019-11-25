@@ -70,7 +70,7 @@ public class CalendarController : MonoBehaviour
             }
         }
         _yearNumText.text = _dateTime.Year.ToString();
-        _monthNumText.text = _dateTime.Month.ToString();
+        _monthNumText.text = _dateTime.Month.ToString("00");
     }
 
     int GetDays(DayOfWeek day)
