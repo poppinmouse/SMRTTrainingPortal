@@ -20,6 +20,8 @@ public class CalendarController : MonoBehaviour
     private DateTime _dateTime;
     public static CalendarController _calendarInstance;
 
+    public Dictionary<string, GameObject> dateLookUp = new Dictionary<string, GameObject>();
+
     void Start()
     {
         _calendarInstance = this;
@@ -36,7 +38,7 @@ public class CalendarController : MonoBehaviour
             item.transform.localRotation = Quaternion.identity;
             item.transform.localPosition = new Vector3((i % 7) * 31 + startPos.x, startPos.y - (i / 7) * 25, startPos.z);
 
-            _dateItems.Add(item);
+            _dateItems.Add(item);            
         }
 
         _dateTime = DateTime.Now;
@@ -66,11 +68,18 @@ public class CalendarController : MonoBehaviour
 
                     label.text = (date + 1).ToString();
                     date++;
+
+                    //add to datelookup dictionary
+                    dateLookUp.Add(label.text + _dateTime.Month.ToString("00") + _dateTime.Year.ToString(), _dateItems[i]);
+
                 }
             }
+
         }
         _yearNumText.text = _dateTime.Year.ToString();
         _monthNumText.text = _dateTime.Month.ToString("00");
+
+        //dateLookUp["1112019"].SetActive(false);     
     }
 
     int GetDays(DayOfWeek day)
