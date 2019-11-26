@@ -50,12 +50,15 @@ public class CalendarController : MonoBehaviour
 
     void CreateCalendar()
     {
+        //clear datelookup dictionary
+        dateLookUp.Clear();
         DateTime firstDay = _dateTime.AddDays(-(_dateTime.Day - 1));
         int index = GetDays(firstDay.DayOfWeek);
 
         int date = 0;
         for (int i = 0; i < _totalDateNum; i++)
         {
+            _dateItems[i].GetComponent<Button>().interactable = true;
             Text label = _dateItems[i].GetComponentInChildren<Text>();
             _dateItems[i].SetActive(false);
 
@@ -79,7 +82,19 @@ public class CalendarController : MonoBehaviour
         _yearNumText.text = _dateTime.Year.ToString();
         _monthNumText.text = _dateTime.Month.ToString("00");
 
-        //dateLookUp["1112019"].SetActive(false);     
+        for (int i = 0; i < GetController.getControllerInstance.dateList.Count; i++)
+        { 
+            if (dateLookUp.TryGetValue(GetController.getControllerInstance.dateList[i].ToString(), out GameObject dateObject))
+            {
+                dateLookUp[GetController.getControllerInstance.dateList[i].ToString()].GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                Debug.Log("cant find");
+            }
+
+
+        }
     }
 
     int GetDays(DayOfWeek day)

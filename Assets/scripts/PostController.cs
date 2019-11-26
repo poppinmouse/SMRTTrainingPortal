@@ -20,6 +20,7 @@ public class PostController : MonoBehaviour
     public void Submit()
     {
         StartCoroutine(Upload());
+        CalendarController._calendarInstance.dateLookUp[CalendarController._calendarInstance.selectedDate.ToString()].GetComponent<Button>().interactable = false;
     }
 
     IEnumerator Upload()

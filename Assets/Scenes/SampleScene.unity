@@ -677,6 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd33696ad60bdb4591073be483567d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dateList: 
 --- !u!1 &618539067
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,7 +4784,6 @@ GameObject:
   m_Component:
   - component: {fileID: 153996153258881680}
   - component: {fileID: 153996153258881681}
-  - component: {fileID: 153996153258881696}
   m_Layer: 5
   m_Name: CalendarController
   m_TagString: Untagged
@@ -4791,18 +4791,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &153996153258881696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 153996153258881695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dcf48d31f7d1c541a389855e12a8d9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &153996153325647464
 MonoBehaviour:
   m_ObjectHideFlags: 0
