@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PostController : MonoBehaviour
 {
+    public string url;
     public Dropdown trainingTypeDD;
 
     public InputField[] nameFields;
@@ -13,9 +14,17 @@ public class PostController : MonoBehaviour
     public InputField[] interchangeFields;
 
     [SerializeField]
-    public Trainee[] trainees = new Trainee[2];
+    public Trainee[] trainees;
 
     private string route;
+
+    private int numberOfTrainees;
+
+    private void Start()
+    {
+        numberOfTrainees = nameFields.Length;
+        trainees = new Trainee[numberOfTrainees];
+    }
 
     public void Submit()
     {
@@ -68,7 +77,7 @@ public class PostController : MonoBehaviour
                 break;
         }
 
-        UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000" + "/" + route, form);
+        UnityWebRequest www = UnityWebRequest.Post(url + "/" + route, form);
         
         yield return www.SendWebRequest();
 

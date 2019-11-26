@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class GetController : MonoBehaviour
 {
+    public string url;
     public List<int> dateList;
     public static GetController getControllerInstance;
 
     void Start()
     {
         getControllerInstance = this;
-        StartCoroutine(GetRequest("http://localhost:3000/Dates"));
+        StartCoroutine(GetRequest( url + "/Dates"));
     }
 
     IEnumerator GetRequest(string uri)
@@ -28,6 +29,7 @@ public class GetController : MonoBehaviour
             }
             else
             {
+                Debug.Log(webRequest.downloadHandler.text);
                 dateList = JsonUtility.FromJson<AppointedDates>(webRequest.downloadHandler.text).dates;
                 for(int i = 0; i < dateList.Count; i++)
                 {

@@ -43,6 +43,8 @@ public class CalendarController : MonoBehaviour
 
         _dateTime = DateTime.Now;
 
+        Debug.Log(DateTime.Today.Month);
+
         CreateCalendar();
 
         _calendarPanel.SetActive(false);
@@ -50,6 +52,7 @@ public class CalendarController : MonoBehaviour
 
     void CreateCalendar()
     {
+        //CheckPreviousYearMonthButtonStatus();
         //clear datelookup dictionary
         dateLookUp.Clear();
         DateTime firstDay = _dateTime.AddDays(-(_dateTime.Day - 1));
@@ -58,7 +61,7 @@ public class CalendarController : MonoBehaviour
         int date = 0;
         for (int i = 0; i < _totalDateNum; i++)
         {
-            _dateItems[i].GetComponent<Button>().interactable = true;
+            _dateItems[i].GetComponent<Button>().interactable = true; //clear out previous disable ones
             Text label = _dateItems[i].GetComponentInChildren<Text>();
             _dateItems[i].SetActive(false);
 
@@ -72,9 +75,35 @@ public class CalendarController : MonoBehaviour
                     label.text = (date + 1).ToString();
                     date++;
 
+                    if(_dateTime.Year < DateTime.Today.Year)
+                    {
+                        _dateItems[i].GetComponent<Button>().interactable = false;
+                    }
+                    else if(_dateTime.Year == DateTime.Today.Year)
+                    {
+                        if (_dateTime.Month < DateTime.Today.Month)
+                        {
+                            _dateItems[i].GetComponent<Button>().interactable = false;
+                        }
+                        else if (_dateTime.Month == DateTime.Today.Month)
+                        {
+                            if (date < DateTime.Today.Day)
+                            {
+                                _dateItems[i].GetComponent<Button>().interactable = false;
+                            }
+                        }
+                        else
+                        {
+                            _dateItems[i].GetComponent<Button>().interactable = true;
+                        }
+                    }
+                    else
+                    {
+                        _dateItems[i].GetComponent<Button>().interactable = true;
+                    }
+
                     //add to datelookup dictionary
                     dateLookUp.Add(label.text + _dateTime.Month.ToString("00") + _dateTime.Year.ToString(), _dateItems[i]);
-
                 }
             }
 
@@ -92,8 +121,6 @@ public class CalendarController : MonoBehaviour
             {
                 Debug.Log("cant find");
             }
-
-
         }
     }
 
@@ -140,7 +167,7 @@ public class CalendarController : MonoBehaviour
     {
         _calendarPanel.SetActive(true);
         _target = target;
-        _calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);
+        //_calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);
     }
 
     Text _target;
