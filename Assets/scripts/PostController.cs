@@ -29,12 +29,18 @@ public class PostController : MonoBehaviour
     public void Submit()
     {
         StartCoroutine(Upload());
-        CalendarController._calendarInstance.dateLookUp[CalendarController._calendarInstance.selectedDate.ToString()].GetComponent<Button>().interactable = false;
+        //locally disable the selected date for this session
+        //CalendarController._calendarInstance.dateLookUp[CalendarController._calendarInstance.selectedDate.ToString()].GetComponent<Button>().interactable = false;
     }
 
     IEnumerator Upload()
     {
         WWWForm form = new WWWForm();
+
+        int[] arr = CalendarController._calendarInstance.reservedDates.ToArray();
+        string arrJson = JsonHelper.ToJson(arr);
+        form.AddField("ReservedDates", arrJson);
+
         form.AddField("BookedDate", CalendarController._calendarInstance.selectedDate);
 
         for (int i = 0; i < 2; i++)

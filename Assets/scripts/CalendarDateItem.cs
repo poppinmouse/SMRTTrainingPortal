@@ -4,8 +4,29 @@ using UnityEngine.UI;
 
 public class CalendarDateItem : MonoBehaviour {
 
-    public void OnDateItemClick()
+    public Color chosenColor;
+    bool hasChosen = false;
+    Button btn;
+
+    private void Start()
     {
-        CalendarController._calendarInstance.OnDateItemClick(System.Convert.ToInt32(GetComponentInChildren<Text>().text).ToString("00"));
+        btn = GetComponent<Button>();
     }
+
+    public void OnDateItemButtonClick()
+    {
+        if(!hasChosen)
+        {
+            CalendarController._calendarInstance.OnDateItemAdd(System.Convert.ToInt32(GetComponentInChildren<Text>().text).ToString("00"));
+            btn.image.color = chosenColor;
+        }
+        else
+        {
+            CalendarController._calendarInstance.OnDateItemRemove(System.Convert.ToInt32(GetComponentInChildren<Text>().text).ToString("00"));
+            btn.image.color = btn.colors.normalColor;
+        }
+
+        hasChosen = !hasChosen;
+    }
+
 }

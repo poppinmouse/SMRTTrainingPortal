@@ -15,6 +15,7 @@ public class CalendarController : MonoBehaviour
     public List<GameObject> _dateItems = new List<GameObject>();
     const int _totalDateNum = 42;
 
+    public List<int> reservedDates = new List<int>();
     public int selectedDate;
 
     private DateTime _dateTime;
@@ -117,10 +118,10 @@ public class CalendarController : MonoBehaviour
             {
                 dateLookUp[GetController.getControllerInstance.dateList[i].ToString()].GetComponent<Button>().interactable = false;
             }
-            else
-            {
-                Debug.Log("cant find");
-            }
+            //else
+            //{
+            //    Debug.Log("cant find");
+            //}
         }
     }
 
@@ -171,14 +172,21 @@ public class CalendarController : MonoBehaviour
     }
 
     Text _target;
-    public void OnDateItemClick(string day)
+    public void OnDateItemAdd(string day)
     {
-        _target.text = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day+"Day";
+        //_target.text = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day+"Day";
         if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
         {
-            selectedDate = result;
+            //selectedDate = result;
+            reservedDates.Add(result);
         }
-        _calendarPanel.SetActive(false);
+        //_calendarPanel.SetActive(false);
     }
-
+    public void OnDateItemRemove(string day)
+    {
+        if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
+        {
+            reservedDates.Remove(result);
+        }
+    }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppointedDates
+public class BlockedDates
 {
     public List<int> dates;
 }

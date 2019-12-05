@@ -30,7 +30,7 @@ public class GetController : MonoBehaviour
             else
             {
                 Debug.Log(webRequest.downloadHandler.text);
-                dateList = JsonUtility.FromJson<AppointedDates>(webRequest.downloadHandler.text).dates;
+                dateList = JsonUtility.FromJson<BlockedDates>(webRequest.downloadHandler.text).dates;
                 for(int i = 0; i < dateList.Count; i++)
                 {
                     //char[] charArray = dateList[i].ToString("D8").ToCharArray();
@@ -43,12 +43,11 @@ public class GetController : MonoBehaviour
                     {
                         CalendarController._calendarInstance.dateLookUp[dateList[i].ToString()].GetComponent<Button>().interactable = false;
                     }
-                    else
-                    {
-                        Debug.Log("cant find");
-                    }
-                    
-
+                    //else
+                    //{
+                    //    Debug.Log("cant find");
+                    //}
+                   
                 }
                
             }
