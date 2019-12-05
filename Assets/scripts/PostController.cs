@@ -41,7 +41,10 @@ public class PostController : MonoBehaviour
         string arrJson = JsonHelper.ToJson(arr);
         form.AddField("ReservedDates", arrJson);
 
-        form.AddField("BookedDate", CalendarController._calendarInstance.selectedDate);
+        BookedDate bookedDate = new BookedDate(13122019, true);
+        string bookedDateJson = JsonUtility.ToJson(bookedDate);
+        form.AddField("BookedDate", bookedDateJson);
+        //form.AddField("BookedDate", CalendarController._calendarInstance.selectedDate);
 
         for (int i = 0; i < 2; i++)
         {
