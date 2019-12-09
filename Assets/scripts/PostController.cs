@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -123,20 +125,37 @@ public class PostController : MonoBehaviour
 
         emailSubject = string.Format("Booking for {0} Training", trainingType);
 
+        string appointedDates = "";
+        for (int i = 0; i < CalendarController._calendarInstance.reservedDates.Count; i++)
+        {
+            var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
+            if(i == 0)
+            {
+                appointedDates += dt.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture);
+            }
+            else if(i == CalendarController._calendarInstance.reservedDates.Count-1)
+            {
+                appointedDates += " and " + dt.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                appointedDates += ", " + dt.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture);
+            }
+        }
+
         emailBody = string.Format("Hi Interchange Personal,\n\n " +
             "Here are the Bus Captains that need to attend the {0} Training.\n\n " +
             "{1}  {2}   {3}\n\n" +
             "{4}  {5}   {6}\n\n" +
             "{7}  {8}   {9}\n\n" +
-            "We are avaliable for {10} to {11}. Please kindly choose a date that suitable and sent email to {12}\n\n" +
+            "We are avaliable for {10}. Please kindly choose a date that suitable and sent email to {11}\n\n" +
             "Thanks and Regards,\n" +
             "Adele",
             trainingType, 
             nameFields[0].text, iDFields[0].text, interchangeFields[0].text,
             nameFields[1].text, iDFields[1].text, interchangeFields[1].text,
             nameFields[2].text, iDFields[2].text, interchangeFields[2].text,
-            CalendarController._calendarInstance.reservedDates[0].ToString(),
-            CalendarController._calendarInstance.reservedDates[1].ToString(),
+            appointedDates,
             addressDDs[1].options[addressDDs[1].value].text);
 
         subject.text = emailSubject;
@@ -151,7 +170,6 @@ public class PostController : MonoBehaviour
         Email email = new Email(addressDDs[0].options[addressDDs[0].value].text, addressDDs[1].options[addressDDs[1].value].text, subject.text, body.text);
 
         string emailJson = JsonUtility.ToJson(email);
-        Debug.Log(emailJson);
 
         form.AddField("Email", emailJson);
 
