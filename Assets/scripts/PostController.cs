@@ -23,6 +23,7 @@ public class PostController : MonoBehaviour
 
     public Email email;
     public GameObject EmailTemplate;
+    public GameObject CompleteNoti;
 
     private string route;
 
@@ -126,19 +127,24 @@ public class PostController : MonoBehaviour
             "Here are the Bus Captains that need to attend the {0} Training.\n\n " +
             "{1}  {2}   {3}\n\n" +
             "{4}  {5}   {6}\n\n" +
-            "{7}  {8}   {9}\n\n",
+            "{7}  {8}   {9}\n\n" +
+            "We are avaliable for {10} to {11}. Please kindly choose a date that suitable and sent email to {12}\n\n" +
+            "Thanks and Regards,\n" +
+            "Adele",
             trainingType, 
             nameFields[0].text, iDFields[0].text, interchangeFields[0].text,
             nameFields[1].text, iDFields[1].text, interchangeFields[1].text,
             nameFields[2].text, iDFields[2].text, interchangeFields[2].text,
-            nameFields[3].text, iDFields[3].text, interchangeFields[3].text);
+            CalendarController._calendarInstance.reservedDates[0].ToString(),
+            CalendarController._calendarInstance.reservedDates[1].ToString(),
+            addressDDs[1].options[addressDDs[1].value].text);
 
         subject.text = emailSubject;
         body.text = emailBody;
 
     }
 
-    IEnumerator SentEmail()
+    IEnumerator SentEmailCR()
     {
         WWWForm form = new WWWForm();
 
@@ -149,7 +155,7 @@ public class PostController : MonoBehaviour
 
         form.AddField("Email", emailJson);
 
-        UnityWebRequest www = UnityWebRequest.Post(url + "/" + route, form);
+        UnityWebRequest www = UnityWebRequest.Post(url + "/" + "email", form);
 
         yield return www.SendWebRequest();
 
@@ -163,11 +169,9 @@ public class PostController : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void SendEmail()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(SentEmail());
-        }
+        StartCoroutine(SentEmailCR());
+        CompleteNoti.SetActive(true);
     }
 }
