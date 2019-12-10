@@ -76,11 +76,11 @@ public class CalendarController : MonoBehaviour
                     label.text = (date + 1).ToString();
                     date++;
 
-                    if(_dateTime.Year < DateTime.Today.Year)
+                    if (_dateTime.Year < DateTime.Today.Year)
                     {
                         _dateItems[i].GetComponent<Button>().interactable = false;
                     }
-                    else if(_dateTime.Year == DateTime.Today.Year)
+                    else if (_dateTime.Year == DateTime.Today.Year)
                     {
                         if (_dateTime.Month < DateTime.Today.Month)
                         {

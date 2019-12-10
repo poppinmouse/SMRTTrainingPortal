@@ -53,10 +53,10 @@ public class InterchangeBookingController : MonoBehaviour
     {
         WWWForm form = new WWWForm();
 
-        //var dt = DateTime.ParseExact(toggleGroup.GetActive().GetComponentInChildren<Text>().text, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        var dt = DateTime.ParseExact(toggleGroup.GetActive().GetComponentInChildren<Text>().text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
 
-        //BookedDate bookedDate = new BookedDate(int.Parse(dt.ToString("ddMMyyyy", CultureInfo.InvariantCulture)), true);
-        BookedDate bookedDate = new BookedDate(toggleGroup.GetActive().GetComponentInChildren<Text>().text, true);
+        BookedDate bookedDate = new BookedDate(dt.ToString("MM-dd-yyyy", CultureInfo.InvariantCulture), true);
+        //BookedDate bookedDate = new BookedDate(toggleGroup.GetActive().GetComponentInChildren<Text>().text, true);
 
         string bookedDateJson = JsonUtility.ToJson(bookedDate);
         form.AddField("BookedDate", bookedDateJson);
