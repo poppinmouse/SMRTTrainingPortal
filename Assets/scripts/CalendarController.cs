@@ -104,7 +104,7 @@ public class CalendarController : MonoBehaviour
                     }
 
                     //add to datelookup dictionary
-                    dateLookUp.Add(int.Parse(label.text).ToString("00") + "-" + _dateTime.Month.ToString("00") + "-" + _dateTime.Year.ToString(), _dateItems[i]);
+                    dateLookUp.Add(_dateTime.Month.ToString("00") + "-" + int.Parse(label.text).ToString("00") + "-" + _dateTime.Year.ToString(), _dateItems[i]);
                 }
             }
 
@@ -174,7 +174,7 @@ public class CalendarController : MonoBehaviour
     Text _target;
     public void OnDateItemAdd(string day)
     {
-        reservedDates.Add(day + "-" + _calendarInstance._monthNumText.text + "-" + _calendarInstance._yearNumText.text);
+        reservedDates.Add(_calendarInstance._monthNumText.text + "-" + day + "-" + _calendarInstance._yearNumText.text);
         //_target.text = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day+"Day";
         //if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
         //{
@@ -185,7 +185,7 @@ public class CalendarController : MonoBehaviour
     }
     public void OnDateItemRemove(string day)
     {
-        reservedDates.Remove(day + "-" + _calendarInstance._monthNumText.text + "-" + _calendarInstance._yearNumText.text);
+        reservedDates.Remove(_calendarInstance._monthNumText.text + "-" + day + "-" + _calendarInstance._yearNumText.text);
         //if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
         //{
         //    reservedDates.Remove(result);

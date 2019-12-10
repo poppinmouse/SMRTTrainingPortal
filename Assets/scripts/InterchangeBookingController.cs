@@ -41,9 +41,8 @@ public class InterchangeBookingController : MonoBehaviour
                     GameObject radioBtn = Instantiate(toggle.gameObject);
                     radioBtn.transform.SetParent(toggle.transform.parent);
                     radioBtn.transform.position = new Vector2(toggle.transform.position.x, toggle.transform.position.y - 50*i);
-                    //var dt = DateTime.ParseExact(booking.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
-                    //radioBtn.GetComponentInChildren<Text>().text = dt.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
-                    radioBtn.GetComponentInChildren<Text>().text = booking.reservedDates[i];
+                    var dt = DateTime.ParseExact(booking.reservedDates[i], "MM-dd-yyyy", CultureInfo.InvariantCulture);
+                    radioBtn.GetComponentInChildren<Text>().text = dt.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture);
                     radioBtn.SetActive(true);
                 }
             }

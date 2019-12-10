@@ -5,6 +5,6 @@ using UnityEngine;
 public class Booking 
 {
     public List<string> reservedDates;
-    public int bookedDate;
+    public BookedDate bookedDate;
     public List<Trainee> trainees;
 }

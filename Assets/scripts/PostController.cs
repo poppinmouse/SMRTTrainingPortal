@@ -129,7 +129,7 @@ public class PostController : MonoBehaviour
         for (int i = 0; i < CalendarController._calendarInstance.reservedDates.Count; i++)
         {
             //var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
-            var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i], "ddMMyyyy", CultureInfo.InvariantCulture);
+            var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i], "MM-dd-yyyy", CultureInfo.InvariantCulture);
 
             if (i == 0)
             {
