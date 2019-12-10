@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Booking 
 {
-    public List<int> reservedDates;
+    public List<string> reservedDates;
     public int bookedDate;
     public List<Trainee> trainees;
 }

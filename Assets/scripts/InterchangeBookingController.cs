@@ -41,8 +41,9 @@ public class InterchangeBookingController : MonoBehaviour
                     GameObject radioBtn = Instantiate(toggle.gameObject);
                     radioBtn.transform.SetParent(toggle.transform.parent);
                     radioBtn.transform.position = new Vector2(toggle.transform.position.x, toggle.transform.position.y - 50*i);
-                    var dt = DateTime.ParseExact(booking.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
-                    radioBtn.GetComponentInChildren<Text>().text = dt.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    //var dt = DateTime.ParseExact(booking.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
+                    //radioBtn.GetComponentInChildren<Text>().text = dt.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    radioBtn.GetComponentInChildren<Text>().text = booking.reservedDates[i];
                     radioBtn.SetActive(true);
                 }
             }
@@ -51,12 +52,13 @@ public class InterchangeBookingController : MonoBehaviour
 
     IEnumerator Upload()
     {
-        Debug.Log("in");
         WWWForm form = new WWWForm();
 
-        var dt = DateTime.ParseExact(toggleGroup.GetActive().GetComponentInChildren<Text>().text, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        //var dt = DateTime.ParseExact(toggleGroup.GetActive().GetComponentInChildren<Text>().text, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
-        BookedDate bookedDate = new BookedDate(int.Parse(dt.ToString("ddMMyyyy", CultureInfo.InvariantCulture)), true);
+        //BookedDate bookedDate = new BookedDate(int.Parse(dt.ToString("ddMMyyyy", CultureInfo.InvariantCulture)), true);
+        BookedDate bookedDate = new BookedDate(toggleGroup.GetActive().GetComponentInChildren<Text>().text, true);
+
         string bookedDateJson = JsonUtility.ToJson(bookedDate);
         form.AddField("BookedDate", bookedDateJson);
 

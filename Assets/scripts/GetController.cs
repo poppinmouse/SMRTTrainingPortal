@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GetController : MonoBehaviour
 {
     public string url;
-    public List<int> dateList;
+    public List<string> dateList;
     public static GetController getControllerInstance;
 
     void Start()
@@ -33,16 +33,20 @@ public class GetController : MonoBehaviour
                 dateList = JsonUtility.FromJson<BlockedDates>(webRequest.downloadHandler.text).dates;
                 for(int i = 0; i < dateList.Count; i++)
                 {
+                    if (CalendarController._calendarInstance.dateLookUp.TryGetValue(dateList[i], out GameObject dateObject))
+                    {
+                        CalendarController._calendarInstance.dateLookUp[dateList[i]].GetComponent<Button>().interactable = false;
+                    }
                     //char[] charArray = dateList[i].ToString("D8").ToCharArray();
                     //for (int j = 0; j < 2; j++)
                     //{
                     //    Debug.Log(charArray[j]);
                     //}
                     //Debug.Log(dateList[i]);
-                    if(CalendarController._calendarInstance.dateLookUp.TryGetValue(dateList[i].ToString(), out GameObject dateObject))
-                    {
-                        CalendarController._calendarInstance.dateLookUp[dateList[i].ToString()].GetComponent<Button>().interactable = false;
-                    }
+                    //if (CalendarController._calendarInstance.dateLookUp.TryGetValue(dateList[i].ToString(), out GameObject dateObject))
+                    //{
+                    //    CalendarController._calendarInstance.dateLookUp[dateList[i].ToString()].GetComponent<Button>().interactable = false;
+                    //}
                     //else
                     //{
                     //    Debug.Log("cant find");

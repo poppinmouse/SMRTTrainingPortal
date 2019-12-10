@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class BookedDate
 {
-    public int proposedDate;
+    public string proposedDate;
     public bool hasApproved;
 
-    public BookedDate(int proposedDate, bool hasApproved)
+    public BookedDate(string proposedDate, bool hasApproved)
     {
         this.proposedDate = proposedDate;
         this.hasApproved = hasApproved;

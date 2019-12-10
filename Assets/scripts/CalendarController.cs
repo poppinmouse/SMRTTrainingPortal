@@ -15,7 +15,7 @@ public class CalendarController : MonoBehaviour
     public List<GameObject> _dateItems = new List<GameObject>();
     const int _totalDateNum = 42;
 
-    public List<int> reservedDates = new List<int>();
+    public List<string> reservedDates = new List<string>();
     public int selectedDate;
 
     private DateTime _dateTime;
@@ -104,7 +104,7 @@ public class CalendarController : MonoBehaviour
                     }
 
                     //add to datelookup dictionary
-                    dateLookUp.Add(label.text + _dateTime.Month.ToString("00") + _dateTime.Year.ToString(), _dateItems[i]);
+                    dateLookUp.Add(int.Parse(label.text).ToString("00") + "-" + _dateTime.Month.ToString("00") + "-" + _dateTime.Year.ToString(), _dateItems[i]);
                 }
             }
 
@@ -174,19 +174,21 @@ public class CalendarController : MonoBehaviour
     Text _target;
     public void OnDateItemAdd(string day)
     {
+        reservedDates.Add(day + "-" + _calendarInstance._monthNumText.text + "-" + _calendarInstance._yearNumText.text);
         //_target.text = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day+"Day";
-        if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
-        {
-            //selectedDate = result;
-            reservedDates.Add(result);
-        }
+        //if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
+        //{
+        //    //selectedDate = result;
+        //    reservedDates.Add(result);
+        //}
         //_calendarPanel.SetActive(false);
     }
     public void OnDateItemRemove(string day)
     {
-        if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
-        {
-            reservedDates.Remove(result);
-        }
+        reservedDates.Remove(day + "-" + _calendarInstance._monthNumText.text + "-" + _calendarInstance._yearNumText.text);
+        //if (int.TryParse(day + _calendarInstance._monthNumText.text + _calendarInstance._yearNumText.text, out int result))
+        //{
+        //    reservedDates.Remove(result);
+        //}
     }
 }

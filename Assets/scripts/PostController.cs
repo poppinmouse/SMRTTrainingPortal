@@ -54,13 +54,13 @@ public class PostController : MonoBehaviour
     {
         WWWForm form = new WWWForm();
 
-        int[] arr = CalendarController._calendarInstance.reservedDates.ToArray();
+        string[] arr = CalendarController._calendarInstance.reservedDates.ToArray();
         string arrJson = JsonHelper.ToJson(arr);
         form.AddField("ReservedDates", arrJson);
 
-        BookedDate bookedDate = new BookedDate(13122019, true);
-        string bookedDateJson = JsonUtility.ToJson(bookedDate);
-        form.AddField("BookedDate", bookedDateJson);
+        //BookedDate bookedDate = new BookedDate(13122019, true);
+        //string bookedDateJson = JsonUtility.ToJson(bookedDate);
+        //form.AddField("BookedDate", bookedDateJson);
         //form.AddField("BookedDate", CalendarController._calendarInstance.selectedDate);
 
         for (int i = 0; i < 2; i++)
@@ -128,8 +128,10 @@ public class PostController : MonoBehaviour
         string appointedDates = "";
         for (int i = 0; i < CalendarController._calendarInstance.reservedDates.Count; i++)
         {
-            var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
-            if(i == 0)
+            //var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
+            var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i], "ddMMyyyy", CultureInfo.InvariantCulture);
+
+            if (i == 0)
             {
                 appointedDates += dt.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture);
             }

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BlockedDates
 {
-    public List<int> dates;
+    public List<string> dates;
 }
