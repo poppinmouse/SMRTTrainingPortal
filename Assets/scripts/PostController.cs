@@ -72,8 +72,9 @@ public class PostController : MonoBehaviour
                 iD = result;
             }
             string interchange = interchangeFields[i].text;
+            bool absent = false;
 
-            trainees[i] = new Trainee(name, iD, interchange);
+            trainees[i] = new Trainee(name, iD, interchange, absent);
 
             //form.AddField("Name" + i, name);
             //form.AddField("Id" + i, iD);
