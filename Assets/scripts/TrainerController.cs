@@ -6,66 +6,73 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 public class TrainerController : MonoBehaviour
 {
     public string url;
     public List<Booking> bookingList = new List<Booking>();
     public GameObject button;
+    public GameObject toConfirmPopUp;
+    public RootObject theBookings;
 
     void Start()
     {
-        StartCoroutine(GetRequest(url + "/bookings/"));
+        //theBookings = new RootObject();
+        //StartCoroutine(GetRequest(url + "/bookings/"));
+        StartCoroutine(Generate());
     }
 
-    IEnumerator GetRequest(string uri)
+    IEnumerator Generate()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        yield return GetBookingsManager.Instance.GetRequest();
+
+        for (int i = 0; i < GetBookingsManager.Instance.theBookings.bookings.Count; i++)
         {
-            // Request and wait for the desired page.
-            yield return webRequest.SendWebRequest();
+            if (GetBookingsManager.Instance.theBookings.bookings[i].issueCode != 0)
+            {
+                GameObject btn = Instantiate(button);//instantiate the button
+                btn.transform.SetParent(button.transform.parent);
+                btn.transform.position = new Vector2(button.transform.position.x, button.transform.position.y - 100 * i);
+                btn.SetActive(true);
 
-            if (webRequest.isNetworkError)
-            {
-                Debug.Log(webRequest.error);
-            }
-            else
-            {
-                RootObject theBookings = new RootObject();
-                JsonConvert.PopulateObject(webRequest.downloadHandler.text, theBookings);
-                for (int i = 0; i < theBookings.bookings.Count; i++)
+                //issueCode reference
+                //0 = no issue
+                //1 = to confirm
+                //2 = to remind
+                //3 = to rebook
+                switch (GetBookingsManager.Instance.theBookings.bookings[i].issueCode)
                 {
-                    if (theBookings.bookings[i].issueCode != 0)
-                    {
-                        GameObject btn = Instantiate(button);//instantiate the button
-                        btn.transform.SetParent(button.transform.parent);
-                        btn.transform.position = new Vector2(button.transform.position.x, button.transform.position.y - 100 * i);
-                        btn.SetActive(true);
-
-                        switch (theBookings.bookings[i].issueCode)
-                        {
-                            case 1:
-                                btn.GetComponentInChildren<Text>().text = "To Remind";
-                                break;
-                            case 2:
-                                btn.GetComponentInChildren<Text>().text = "To Confirm";
-                                break;
-                            case 3:
-                                btn.GetComponentInChildren<Text>().text = "To Rebook";
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    case 1:
+                        btn.GetComponentInChildren<Text>().text = "To Confirm";
+                        btn.GetComponent<ButtonIndex>().index = i;
+                        btn.GetComponent<Button>().onClick.AddListener(() => {
+                            GetBookingsManager.Instance.selectedIndex = btn.GetComponent<ButtonIndex>().index;
+                            SceneManager.LoadScene("Confirm");
+                        });
+                        break;
+                    case 2:
+                        btn.GetComponentInChildren<Text>().text = "To Remind";
+                        btn.GetComponent<ButtonIndex>().index = i;
+                        btn.GetComponent<Button>().onClick.AddListener(() => {
+                            GetBookingsManager.Instance.selectedIndex = btn.GetComponent<ButtonIndex>().index;
+                            SceneManager.LoadScene("Remind");
+                        });
+                        break;
+                    case 3:
+                        btn.GetComponentInChildren<Text>().text = "To Rebook";
+                        btn.GetComponent<ButtonIndex>().index = i;
+                        btn.GetComponent<Button>().onClick.AddListener(() => {
+                            GetBookingsManager.Instance.selectedIndex = btn.GetComponent<ButtonIndex>().index;
+                            SceneManager.LoadScene("Rebook");
+                        });
+                        break;
+                    default:
+                        break;
                 }
-                
             }
         }
     }
+
 }
 
-
-public class RootObject
-{
-    public List<Booking> bookings { get; set; }
-}

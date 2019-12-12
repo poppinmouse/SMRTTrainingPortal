@@ -35,6 +35,7 @@ public class InterchangeBookingController : MonoBehaviour
             }
             else
             {
+                Debug.Log(webRequest.downloadHandler.text);
                 booking = JsonUtility.FromJson<Booking>(webRequest.downloadHandler.text);
                 for (int i = 0; i < booking.reservedDates.Count; i++)
                 {
@@ -55,7 +56,7 @@ public class InterchangeBookingController : MonoBehaviour
 
         var dt = DateTime.ParseExact(toggleGroup.GetActive().GetComponentInChildren<Text>().text, "dd-MMM-yyyy", CultureInfo.InvariantCulture);
 
-        BookedDate bookedDate = new BookedDate(dt.ToString("MM-dd-yyyy", CultureInfo.InvariantCulture), true);
+        BookedDate bookedDate = new BookedDate(dt.ToString("MM-dd-yyyy", CultureInfo.InvariantCulture), false);
         //BookedDate bookedDate = new BookedDate(toggleGroup.GetActive().GetComponentInChildren<Text>().text, true);
 
         string bookedDateJson = JsonUtility.ToJson(bookedDate);

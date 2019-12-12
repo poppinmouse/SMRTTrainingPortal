@@ -393,7 +393,7 @@ MonoBehaviour:
   toggleGroup: {fileID: 0}
   toggle: {fileID: 0}
   url: http://localhost:3000
-  bookingId: 5def433d6e10344ff8fdf4aa
+  bookingId: 5df067533fd9e503840342df
 --- !u!1 &909258092
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,11 +427,11 @@ RectTransform:
   m_Father: {fileID: 786383493}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -459, y: 97}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 51, y: 167}
   m_SizeDelta: {x: 160, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &909258094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,10 +753,10 @@ RectTransform:
   m_Father: {fileID: 786383493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1844982677
 GameObject:
