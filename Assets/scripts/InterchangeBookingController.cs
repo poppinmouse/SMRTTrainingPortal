@@ -14,12 +14,45 @@ public class InterchangeBookingController : MonoBehaviour
     public Booking booking ;
     public string bookingId;
 
+    public GameObject button;  
+    public RootObject theBookings;
+
+    public GameObject bg;
+    public GameObject submitBtn;
+
     void Start()
     {
         toggleGroup = FindObjectOfType<ToggleGroup>();
         toggle = FindObjectOfType<Toggle>();
         toggle.gameObject.SetActive(false);
-        StartCoroutine(GetRequest(url + "/bookings/" + bookingId));
+        StartCoroutine(Generate());
+    }
+
+    IEnumerator Generate()
+    {
+        yield return GetBookingsManager.Instance.GetRequest();
+
+        for (int i = 0; i < GetBookingsManager.Instance.theBookings.bookings.Count; i++)
+        {
+            if (GetBookingsManager.Instance.theBookings.bookings[i].bookedDate.proposedDate == "")
+            {
+                GameObject btn = Instantiate(button);//instantiate the button
+                btn.transform.SetParent(button.transform.parent);
+                btn.transform.position = new Vector2(button.transform.position.x, button.transform.position.y - 100 * i);
+                btn.SetActive(true);
+                btn.GetComponentInChildren<Text>().text = GetBookingsManager.Instance.theBookings.bookings[i]._id;
+                btn.GetComponent<Button>().onClick.AddListener(() => {
+                    bookingId = btn.GetComponentInChildren<Text>().text;
+                    bg.SetActive(true);
+                    StartCoroutine(GetRequest(url + "/bookings/" + bookingId));
+                    submitBtn.SetActive(true);
+                    submitBtn.GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        StartCoroutine(Upload());
+                    });
+                });
+            }
+        }
     }
 
     IEnumerator GetRequest(string uri)

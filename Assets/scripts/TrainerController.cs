@@ -11,9 +11,9 @@ using UnityEngine.SceneManagement;
 public class TrainerController : MonoBehaviour
 {
     public string url;
-    public List<Booking> bookingList = new List<Booking>();
+    //public List<Booking> bookingList = new List<Booking>();
     public GameObject button;
-    public GameObject toConfirmPopUp;
+    //public GameObject toConfirmPopUp;
     public RootObject theBookings;
 
     void Start()
