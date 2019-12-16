@@ -23,9 +23,14 @@ public class CalendarController : MonoBehaviour
 
     public Dictionary<string, GameObject> dateLookUp = new Dictionary<string, GameObject>();
 
-    void Start()
+    private void Awake()
     {
         _calendarInstance = this;
+    }
+
+    void Start()
+    {
+      
         Vector3 startPos = _item.transform.localPosition;
         _dateItems.Clear();
         _dateItems.Add(_item);
@@ -87,7 +92,7 @@ public class CalendarController : MonoBehaviour
                             _dateItems[i].GetComponent<Button>().interactable = false;
                         }
                         else if (_dateTime.Month == DateTime.Today.Month)
-                        {
+                        { 
                             if (date < DateTime.Today.Day)
                             {
                                 _dateItems[i].GetComponent<Button>().interactable = false;

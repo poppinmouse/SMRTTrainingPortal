@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Confirm.unity
     guid: a25aa85b021feba4e815f7f1c5b3d041
+  - enabled: 1
+    path: Assets/Scenes/Trainer.unity
+    guid: 029c8499137cb2249b48a93fd8f30fea
+  - enabled: 1
+    path: Assets/Scenes/Remind.unity
+    guid: 795bcb90b9c949744b8185d401189f8e
   m_configObjects: {}

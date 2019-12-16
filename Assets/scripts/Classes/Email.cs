@@ -17,4 +17,11 @@ public class Email
         this.subject = subject;
         this.body = body;
     }
+
+    public Email(string interchangeAddress, string subject, string body)
+    {
+        this.interchangeAddress = interchangeAddress;
+        this.subject = subject;
+        this.body = body;
+    }
 }

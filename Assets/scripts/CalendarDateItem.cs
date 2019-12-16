@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class CalendarDateItem : MonoBehaviour {
 
+    public static event Action DateChosenEvent = delegate { };
     public Color chosenColor;
     bool hasChosen = false;
     Button btn;
@@ -26,6 +28,7 @@ public class CalendarDateItem : MonoBehaviour {
             btn.image.color = btn.colors.normalColor;
         }
 
+        DateChosenEvent();
         hasChosen = !hasChosen;
     }
 

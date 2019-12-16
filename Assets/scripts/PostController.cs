@@ -163,7 +163,6 @@ public class PostController : MonoBehaviour
 
         subject.text = emailSubject;
         body.text = emailBody;
-
     }
 
     IEnumerator SentEmailCR()
