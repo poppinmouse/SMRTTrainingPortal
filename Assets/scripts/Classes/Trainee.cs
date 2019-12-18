@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Trainee
 {
+    //public string _id;
     public string name;
     public int id;
     public string interchange;

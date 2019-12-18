@@ -623,10 +623,11 @@ MonoBehaviour:
   toggleGroup: {fileID: 0}
   toggle: {fileID: 0}
   url: http://localhost:3000
-  bookingId: 5df067533fd9e503840342df
+  bookingId: 
   button: {fileID: 2115279974}
   bg: {fileID: 475498342}
   submitBtn: {fileID: 1319511663}
+  btnOffset: 100
 --- !u!1 &909258092
 GameObject:
   m_ObjectHideFlags: 0

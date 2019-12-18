@@ -19,6 +19,7 @@ public class InterchangeBookingController : MonoBehaviour
 
     public GameObject bg;
     public GameObject submitBtn;
+    public int btnOffset;
 
     void Start()
     {
@@ -32,13 +33,16 @@ public class InterchangeBookingController : MonoBehaviour
     {
         yield return GetBookingsManager.Instance.GetRequest();
 
+        int btnCount = 0;
+
         for (int i = 0; i < GetBookingsManager.Instance.theBookings.bookings.Count; i++)
         {
             if (GetBookingsManager.Instance.theBookings.bookings[i].bookedDate.proposedDate == "")
             {
                 GameObject btn = Instantiate(button);//instantiate the button
                 btn.transform.SetParent(button.transform.parent);
-                btn.transform.position = new Vector2(button.transform.position.x, button.transform.position.y - 100 * i);
+                btn.transform.position = new Vector2(button.transform.position.x, button.transform.position.y - btnOffset * btnCount);
+                btnCount++;
                 btn.SetActive(true);
                 btn.GetComponentInChildren<Text>().text = GetBookingsManager.Instance.theBookings.bookings[i]._id;
                 btn.GetComponent<Button>().onClick.AddListener(() => {

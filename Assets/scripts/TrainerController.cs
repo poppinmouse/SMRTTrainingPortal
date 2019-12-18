@@ -15,25 +15,33 @@ public class TrainerController : MonoBehaviour
     public GameObject button;
     //public GameObject toConfirmPopUp;
     public RootObject theBookings;
+    public float btnOffset;
+    public Button attendanceButton;
 
     void Start()
     {
         //theBookings = new RootObject();
         //StartCoroutine(GetRequest(url + "/bookings/"));
         StartCoroutine(Generate());
+        attendanceButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Attendance");
+        });
     }
 
     IEnumerator Generate()
     {
         yield return GetBookingsManager.Instance.GetRequest();
 
+        int btnCount = 0;
         for (int i = 0; i < GetBookingsManager.Instance.theBookings.bookings.Count; i++)
         {
             if (GetBookingsManager.Instance.theBookings.bookings[i].issueCode != 0)
             {
                 GameObject btn = Instantiate(button);//instantiate the button
-                btn.transform.SetParent(button.transform.parent);
-                btn.transform.position = new Vector2(button.transform.position.x, button.transform.position.y - 100 * i);
+                btn.transform.SetParent(button.transform.parent);           
+                btn.transform.position = new Vector2(button.transform.position.x, button.transform.position.y - (btnOffset * btnCount));
+                btnCount++;
                 btn.SetActive(true);
 
                 //issueCode reference

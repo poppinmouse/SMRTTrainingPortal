@@ -47,7 +47,6 @@ public class GetBookingsManager : MonoBehaviour
             else
             {
                 JsonConvert.PopulateObject(webRequest.downloadHandler.text, theBookings);
-                Debug.Log(theBookings.bookings[0].trainees[0].id);
             }
         }
     }
