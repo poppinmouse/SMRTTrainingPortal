@@ -39,6 +39,7 @@ public class RemindController : MonoBehaviour
 
         sendButton.onClick.AddListener(() => {
             StartCoroutine(SentEmailCR());
+            StartCoroutine(IssueSolvedCR());
             PopUp.SetActive(true);
         });
 
@@ -104,6 +105,26 @@ public class RemindController : MonoBehaviour
         form.AddField("Email", emailJson);
 
         UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/" + "email", form);
+
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+        }
+    }
+
+    IEnumerator IssueSolvedCR()
+    {
+        WWWForm form = new WWWForm();
+
+        form.AddField("Code", "remind");
+
+        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/issue", form);
 
         yield return www.SendWebRequest();
 

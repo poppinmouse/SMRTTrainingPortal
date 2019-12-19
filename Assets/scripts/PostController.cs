@@ -17,7 +17,7 @@ public class PostController : MonoBehaviour
     public InputField[] interchangeFields;
 
     [SerializeField]
-    public Trainee[] trainees;
+    public List<Trainee> traineeList;
 
     public Dropdown[] addressDDs;
     public InputField subject;
@@ -29,7 +29,6 @@ public class PostController : MonoBehaviour
 
     private string route;
 
-    private int numberOfTrainees;
 
     private void Awake()
     {
@@ -37,8 +36,7 @@ public class PostController : MonoBehaviour
     }
     private void Start()
     {        
-        numberOfTrainees = nameFields.Length;
-        trainees = new Trainee[numberOfTrainees];
+        traineeList = new List<Trainee>();
     }
 
     public void Submit()
@@ -58,30 +56,28 @@ public class PostController : MonoBehaviour
         string arrJson = JsonHelper.ToJson(arr);
         form.AddField("ReservedDates", arrJson);
 
-        //BookedDate bookedDate = new BookedDate(13122019, true);
-        //string bookedDateJson = JsonUtility.ToJson(bookedDate);
-        //form.AddField("BookedDate", bookedDateJson);
-        //form.AddField("BookedDate", CalendarController._calendarInstance.selectedDate);
-
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < nameFields.Length; i++)
         {
-            string name = nameFields[i].text;
-            int iD = 0;
-            if (int.TryParse(iDFields[i].text, out int result))
+            if(nameFields[i].text == "")
             {
-                iD = result;
+                Debug.Log("not count");
             }
-            string interchange = interchangeFields[i].text;
-            bool absent = false;
+            else
+            {
+                string name = nameFields[i].text;
+                int iD = 0;
+                if (int.TryParse(iDFields[i].text, out int result))
+                {
+                    iD = result;
+                }
+                string interchange = interchangeFields[i].text;
+                bool absent = false;
 
-            trainees[i] = new Trainee(name, iD, interchange, absent);
-
-            //form.AddField("Name" + i, name);
-            //form.AddField("Id" + i, iD);
-            //form.AddField("Interchange" + i, interchange);
+                traineeList.Add(new Trainee(name, iD, interchange, absent));
+            }
         }
 
-        string traineesJson = JsonHelper.ToJson(trainees);
+        string traineesJson = JsonHelper.ToJson(traineeList.ToArray());
         Debug.Log(traineesJson);
 
         form.AddField("Trainees", traineesJson);
@@ -129,7 +125,6 @@ public class PostController : MonoBehaviour
         string appointedDates = "";
         for (int i = 0; i < CalendarController._calendarInstance.reservedDates.Count; i++)
         {
-            //var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i].ToString("D8"), "ddMMyyyy", CultureInfo.InvariantCulture);
             var dt = DateTime.ParseExact(CalendarController._calendarInstance.reservedDates[i], "MM-dd-yyyy", CultureInfo.InvariantCulture);
 
             if (i == 0)
@@ -148,18 +143,15 @@ public class PostController : MonoBehaviour
 
         emailBody = string.Format("Hi Interchange Personal,\n\n " +
             "Here are the Bus Captains that need to attend the {0} Training.\n\n " +
-            "{1}  {2}   {3}\n\n" +
-            "{4}  {5}   {6}\n\n" +
-            "{7}  {8}   {9}\n\n" +
-            "We are avaliable for {10}. Please kindly choose a date that suitable and sent email to {11}\n\n" +
+            "{1}\n\n" +
+            "We are avaliable for {2}. Please kindly choose a date that suitable and sent email to {3}\n\n" +
             "Thanks and Regards,\n" +
             "Adele",
-            trainingType, 
-            nameFields[0].text, iDFields[0].text, interchangeFields[0].text,
-            nameFields[1].text, iDFields[1].text, interchangeFields[1].text,
-            nameFields[2].text, iDFields[2].text, interchangeFields[2].text,
+            trainingType,
+            TraineesToString(traineeList),
             appointedDates,
-            addressDDs[1].options[addressDDs[1].value].text);
+            addressDDs[1].options[addressDDs[1].value].text        
+            );
 
         subject.text = emailSubject;
         body.text = emailBody;
@@ -193,5 +185,15 @@ public class PostController : MonoBehaviour
     {
         StartCoroutine(SentEmailCR());
         CompleteNoti.SetActive(true);
+    }
+
+    string TraineesToString(List<Trainee> traineeList)
+    {
+        string traineesString = "";
+        for (int i = 0; i < traineeList.Count; i++)
+        {
+            traineesString += traineeList[i].name + "     " + traineeList[i].id + "     " + traineeList[i].interchange + "\n";
+        }
+        return traineesString;
     }
 }

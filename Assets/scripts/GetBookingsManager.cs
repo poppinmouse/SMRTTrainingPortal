@@ -29,12 +29,14 @@ public class GetBookingsManager : MonoBehaviour
 
     void Start()
     {
-        theBookings = new RootObject();
+        //theBookings = new RootObject();
         //StartCoroutine(GetRequest());
     }
 
     public IEnumerator GetRequest()
     {
+        theBookings = new RootObject();
+
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url + "/bookings/"))
         {
             // Request and wait for the desired page.

@@ -2417,7 +2417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   url: http://localhost:3000
-  dateList: 
+  dateList: []
 --- !u!1 &615950390
 GameObject:
   m_ObjectHideFlags: 0
@@ -6114,13 +6114,7 @@ MonoBehaviour:
   - {fileID: 1881901327}
   - {fileID: 1334834896}
   - {fileID: 1010688852}
-  trainees:
-  - name: 
-    id: 0
-    interchange: 
-  - name: 
-    id: 0
-    interchange: 
+  traineeList: []
   addressDDs:
   - {fileID: 1411610127}
   - {fileID: 2000815649}
@@ -13542,7 +13536,7 @@ MonoBehaviour:
   _monthNumText: {fileID: 153996151645795930}
   _item: {fileID: 153996152681616244}
   _dateItems: []
-  reservedDates: 
+  reservedDates: []
   selectedDate: 0
 --- !u!1 &153996153258881695
 GameObject:

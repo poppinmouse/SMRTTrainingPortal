@@ -8,8 +8,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class AttendanceController : MonoBehaviour
-{
-    
+{   
     public Toggle toggle;
     public string url;
     public Booking booking;
@@ -80,34 +79,49 @@ public class AttendanceController : MonoBehaviour
 
     IEnumerator Upload()
     {
-        WWWForm form = new WWWForm();
         List<Trainee> trainees = new List<Trainee>();
-
-        foreach(Transform toggle in toggles)
+        bool fullAttendance = true;
+        foreach (Transform toggle in toggles)
         {
             if (!toggle.GetComponent<Toggle>().isOn)
             {
+                if (fullAttendance)
+                {
+                    fullAttendance = false;
+                }
+
                 GetBookingsManager.Instance.theBookings.bookings[clickedIndex].trainees[toggle.GetComponent<ToggleIndex>().index].absent = true;
+              
             }
 
             trainees.Add(GetBookingsManager.Instance.theBookings.bookings[clickedIndex].trainees[toggle.GetComponent<ToggleIndex>().index]);
         }
-   
-        string absenteesJson = JsonConvert.SerializeObject(trainees);
-        form.AddField("Absentees", absenteesJson);
 
-        UnityWebRequest www = UnityWebRequest.Post(url + "/bookings/" + bookingId + "/absentees", form);
-
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
+        if(fullAttendance)
         {
-            Debug.Log(www.error);
+            yield return null;
         }
         else
         {
-            Debug.Log(www.downloadHandler.text);
+            WWWForm form = new WWWForm();
+
+            string absenteesJson = JsonConvert.SerializeObject(trainees);
+            form.AddField("Absentees", absenteesJson);
+
+            UnityWebRequest www = UnityWebRequest.Post(url + "/bookings/" + bookingId + "/absentees", form);
+
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log(www.downloadHandler.text);
+            }
         }
+      
     }
 
 }

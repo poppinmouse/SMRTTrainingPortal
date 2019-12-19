@@ -9,18 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Admin.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Confirm.unity
+    path: Assets/Scenes/Su-Scenes/Confirm.unity
     guid: a25aa85b021feba4e815f7f1c5b3d041
   - enabled: 1
     path: Assets/Scenes/Trainer.unity
     guid: 029c8499137cb2249b48a93fd8f30fea
   - enabled: 1
-    path: Assets/Scenes/Remind.unity
+    path: Assets/Scenes/Su-Scenes/Remind.unity
     guid: 795bcb90b9c949744b8185d401189f8e
   - enabled: 1
-    path: Assets/Scenes/Rebook.unity
+    path: Assets/Scenes/Su-Scenes/Rebook.unity
     guid: 54d7af4ce91b5a04ca248be476abc560
   - enabled: 1
-    path: Assets/Scenes/Attendance.unity
+    path: Assets/Scenes/Su-Scenes/Attendance.unity
     guid: e63443219df798f499d0c4039da22871
   m_configObjects: {}

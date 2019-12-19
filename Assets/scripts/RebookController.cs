@@ -43,6 +43,7 @@ public class RebookController : MonoBehaviour
         sendButton.onClick.AddListener(() => {
             StartCoroutine(SentEmailCR());
             StartCoroutine(UploadRebooking());
+            StartCoroutine(IssueSolvedCR());
             PopUp.SetActive(true);
         });
 
@@ -165,6 +166,26 @@ public class RebookController : MonoBehaviour
         form.AddField("Trainees", traineesJson);
 
         UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/" + "ODVL", form);
+
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+        }
+    }
+
+    IEnumerator IssueSolvedCR()
+    {
+        WWWForm form = new WWWForm();
+
+        form.AddField("Code", "rebook");
+
+        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/issue", form);
 
         yield return www.SendWebRequest();
 
