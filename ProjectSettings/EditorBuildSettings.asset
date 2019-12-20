@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Su-Scenes/Attendance.unity
     guid: e63443219df798f499d0c4039da22871
+  - enabled: 1
+    path: Assets/Scenes/Interchange.unity
+    guid: d37b6b10c13e18c41b911ba2f500c417
   m_configObjects: {}
