@@ -13788,10 +13788,6 @@ MonoBehaviour:
     m_Options:
     - m_Text: ODVL
       m_Image: {fileID: 0}
-    - m_Text: Corrective
-      m_Image: {fileID: 0}
-    - m_Text: Intervention
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
