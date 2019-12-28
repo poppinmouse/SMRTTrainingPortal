@@ -104,7 +104,7 @@ public class RemindController : MonoBehaviour
 
         form.AddField("Email", emailJson);
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/" + "email", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/" + "email", form);
 
         yield return www.SendWebRequest();
 
@@ -124,7 +124,7 @@ public class RemindController : MonoBehaviour
 
         form.AddField("Code", "remind");
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/issue", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/issue", form);
 
         yield return www.SendWebRequest();
 

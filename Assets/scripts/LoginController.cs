@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class LoginController : MonoBehaviour
 {
-    public string url;
+    //public string url;
     public InputField username;
     public InputField password;
     public Button login;
@@ -31,7 +31,7 @@ public class LoginController : MonoBehaviour
 
         form.AddField("User", userJson);
 
-        UnityWebRequest www = UnityWebRequest.Post(url + "/" + "login", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/" + "login", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)

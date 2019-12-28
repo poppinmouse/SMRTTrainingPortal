@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 public class AttendanceController : MonoBehaviour
 {   
     public Toggle toggle;
-    public string url;
+    //public string url;
     public Booking booking;
     public string bookingId;
 
@@ -108,7 +108,7 @@ public class AttendanceController : MonoBehaviour
             string absenteesJson = JsonConvert.SerializeObject(trainees);
             form.AddField("Absentees", absenteesJson);
 
-            UnityWebRequest www = UnityWebRequest.Post(url + "/bookings/" + bookingId + "/absentees", form);
+            UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/bookings/" + bookingId + "/absentees", form);
 
             yield return www.SendWebRequest();
 

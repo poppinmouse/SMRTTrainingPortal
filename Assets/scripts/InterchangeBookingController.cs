@@ -10,7 +10,7 @@ public class InterchangeBookingController : MonoBehaviour
 {
     public ToggleGroup toggleGroup;
     public Toggle toggle;
-    public string url;
+    //public string url;
     public Booking booking ;
     public string bookingId;
 
@@ -48,7 +48,7 @@ public class InterchangeBookingController : MonoBehaviour
                 btn.GetComponent<Button>().onClick.AddListener(() => {
                     bookingId = btn.GetComponentInChildren<Text>().text;
                     bg.SetActive(true);
-                    StartCoroutine(GetRequest(url + "/bookings/" + bookingId));
+                    StartCoroutine(GetRequest(NetworkManager.Instance.url + "/bookings/" + bookingId));
                     submitBtn.SetActive(true);
                     submitBtn.GetComponent<Button>().onClick.AddListener(() =>
                     {
@@ -99,7 +99,7 @@ public class InterchangeBookingController : MonoBehaviour
         string bookedDateJson = JsonUtility.ToJson(bookedDate);
         form.AddField("BookedDate", bookedDateJson);
 
-        UnityWebRequest www = UnityWebRequest.Post(url + "/bookings/" + bookingId + "/bookeddate", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/bookings/" + bookingId + "/bookeddate", form);
 
         yield return www.SendWebRequest();
 

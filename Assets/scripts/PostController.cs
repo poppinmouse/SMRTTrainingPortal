@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PostController : MonoBehaviour
 {
-    public string url;
+    //public string url;
     public Dropdown trainingTypeDD;
     public static PostController postControllerInstance;
 
@@ -100,7 +100,7 @@ public class PostController : MonoBehaviour
                 break;
         }
 
-        UnityWebRequest www = UnityWebRequest.Post(url + "/" + route, form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/" + route, form);
         
         yield return www.SendWebRequest();
 
@@ -167,7 +167,7 @@ public class PostController : MonoBehaviour
 
         form.AddField("Email", emailJson);
 
-        UnityWebRequest www = UnityWebRequest.Post(url + "/" + "email", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/" + "email", form);
 
         yield return www.SendWebRequest();
 

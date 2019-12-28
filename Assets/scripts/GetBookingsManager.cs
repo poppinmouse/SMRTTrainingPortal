@@ -9,7 +9,7 @@ public class GetBookingsManager : MonoBehaviour
 {
     public static GetBookingsManager Instance { get; private set; }
 
-    public string url;
+    //public string url;
     public RootObject theBookings;
     public int selectedIndex;
 
@@ -37,7 +37,7 @@ public class GetBookingsManager : MonoBehaviour
     {
         theBookings = new RootObject();
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(url + "/bookings/"))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(NetworkManager.Instance.url + "/bookings/"))
         {
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();

@@ -73,7 +73,7 @@ public class ConfirmController : MonoBehaviour
         string bookedDateJson = JsonUtility.ToJson(bookedDate);
         form.AddField("BookedDate", bookedDateJson);
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/bookeddate", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/bookeddate", form);
 
         yield return www.SendWebRequest();
 
@@ -150,7 +150,7 @@ public class ConfirmController : MonoBehaviour
 
         form.AddField("Email", emailJson);
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/" + "email", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + " /" + "email", form);
 
         yield return www.SendWebRequest();
 

@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class GetController : MonoBehaviour
 {
-    public string url;
+    //public string url;
     public List<string> dateList;
     public static GetController getControllerInstance;
 
     void Start()
     {
         getControllerInstance = this;
-        StartCoroutine(GetRequest( url + "/Dates"));
+        StartCoroutine(GetRequest(NetworkManager.Instance.url + "/Dates"));
     }
 
     IEnumerator GetRequest(string uri)

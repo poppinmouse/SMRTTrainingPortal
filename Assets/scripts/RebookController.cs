@@ -132,7 +132,7 @@ public class RebookController : MonoBehaviour
 
         form.AddField("Email", emailJson);
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/" + "email", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/" + "email", form);
 
         yield return www.SendWebRequest();
 
@@ -165,7 +165,7 @@ public class RebookController : MonoBehaviour
 
         form.AddField("Trainees", traineesJson);
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/" + "ODVL", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/" + "ODVL", form);
 
         yield return www.SendWebRequest();
 
@@ -185,7 +185,7 @@ public class RebookController : MonoBehaviour
 
         form.AddField("Code", "rebook");
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:3000" + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/issue", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkManager.Instance.url + "/bookings/" + GetBookingsManager.Instance.theBookings.bookings[GetBookingsManager.Instance.selectedIndex]._id + "/issue", form);
 
         yield return www.SendWebRequest();
 
